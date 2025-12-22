@@ -1,5 +1,3 @@
-import '../index.css'
-
 function Feature({ img, title, description }) {
     return (
         <div className="feature-item">
