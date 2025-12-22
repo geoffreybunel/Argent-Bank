@@ -35,7 +35,7 @@ function SignIn() {
                             inputId="remember-me"
                         />
                     {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-                    <a href="./user.html" className="sign-in-button">Sign In</a>
+                    <a href="./user" className="sign-in-button">Sign In</a>
                     {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
                     {/* <!-- <button className="sign-in-button">Sign In</button> --> */}
                     {/* <!--  --> */}
