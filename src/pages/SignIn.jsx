@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/authSlice';
 import Header from "../components/header"
@@ -19,10 +20,16 @@ function SignIn() {
 
         // Exemple de validation (vous pouvez ajouter plus de logique ici)
         if (user) {
-            // Envoyer les informations utilisateur à Redux
-            dispatch(login({ firstName: user.firstName, lastName: user.lastName, email: user.email }));
+            // Vérifier le mot de passe hashé
+            const isPasswordValid = bcrypt.compareSync(password, user.password);
+            if (isPasswordValid) {
+                // Envoyer les informations utilisateur à Redux
+                dispatch(login({ firstName: user.firstName, lastName: user.lastName, email: user.email }));
+            } else {
+                alert('Email ou mot de passe incorrect.');
+            }
         } else {
-            alert('Email ou mot de passe incorrect.');
+            alert('Utilisateur non trouvé.');
         }
     }
 
