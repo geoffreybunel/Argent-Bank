@@ -1,8 +1,31 @@
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/authSlice';
 import Header from "../components/header"
 import Footer from "../components/Footer"
 import FormInput from "../components/FormInput"
+import users from '../data/users';
 
 function SignIn() {
+    const dispatch = useDispatch();
+
+    const handleLogin = (e) => {
+        e.preventDfault();
+
+        // Récupérer les valeurs du formulaire
+        const email = e.target.username.value;
+        const password = e.target.password.value;
+
+        const user = users.find((u) => u.email === email && u.password === password);
+
+        // Exemple de validation (vous pouvez ajouter plus de logique ici)
+        if (user) {
+            // Envoyer les informations utilisateur à Redux
+            dispatch(login({ firstName: user.firstName, lastName: user.lastName, email: user.email }));
+        } else {
+            alert('Email ou mot de passe incorrect.');
+        }
+    }
+
     return (
         <>
             <Header />
@@ -12,7 +35,7 @@ function SignIn() {
                     <i className="fa fa-user-circle sign-in-icon"></i>
                     <h1>Sign In</h1>
                     
-                    <form>
+                    <form onSubmit={handleLogin}>
                         <FormInput 
                             className="wrapper"
                             labelFor="username"
