@@ -1,7 +1,7 @@
 function FormInput({ className, labelFor, labelText, inputType, inputId }) {
     return (
         <div className={`input-${className}`}>
-            <label for={labelFor}>{labelText}</label>
+            <label htmlFor={labelFor}>{labelText}</label>
             <input type={inputType} id={inputId} />
         </div>
     )

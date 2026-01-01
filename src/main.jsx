@@ -6,6 +6,7 @@ import store from './redux/store';
 import App from './App.jsx'
 import SignIn from './pages/SignIn.jsx'
 import User from './pages/User.jsx'
+import PrivateRoute from './components/PrivateRoute.jsx'
 import './index.css'
 
 createRoot(document.getElementById('root')).render(
@@ -15,7 +16,11 @@ createRoot(document.getElementById('root')).render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/user" element={<User />} />
+          <Route path="/user" element={
+            <PrivateRoute>
+              <User />
+            </PrivateRoute>
+          } />
         </Routes>
       </Router>
     </Provider>

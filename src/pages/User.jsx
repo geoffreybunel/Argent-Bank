@@ -1,16 +1,19 @@
+import { useSelector } from 'react-redux';
 import Header from "../components/header"
 import Footer from "../components/Footer"
 import Account from "../components/Account"
 import UserHero from "../components/UserHero"
 
 function User() {
+    const user = useSelector((state) => state.auth.user);
+
     return (
         <>  
             <Header />
 
             <main className="main bg-dark">
                 <UserHero 
-                    username="Tony Jarvis"
+                    username={`${user?.firstName}${user?.lastName}`}
                     buttonText="Edit Name"
                 />
 

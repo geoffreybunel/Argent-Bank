@@ -1,35 +1,38 @@
-import bcrypt from 'bcryptjs';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'; // Importer useNavigate
 import { login } from '../redux/authSlice';
+import axiosInstance from '../api/axiosInstance';
 import Header from "../components/header"
 import Footer from "../components/Footer"
 import FormInput from "../components/FormInput"
-import users from '../data/users';
 
 function SignIn() {
     const dispatch = useDispatch();
+    const navigate = useNavigate(); // Initialise useNavigate
 
-    const handleLogin = (e) => {
-        e.preventDfault();
+    const handleLogin = async (e) => {
+        e.preventDefault();
 
         // Récupérer les valeurs du formulaire
         const email = e.target.username.value;
         const password = e.target.password.value;
 
-        const user = users.find((u) => u.email === email && u.password === password);
+        try {
+            const response = await axiosInstance.post('/login', { email, password });
 
-        // Exemple de validation (vous pouvez ajouter plus de logique ici)
-        if (user) {
-            // Vérifier le mot de passe hashé
-            const isPasswordValid = bcrypt.compareSync(password, user.password);
-            if (isPasswordValid) {
-                // Envoyer les informations utilisateur à Redux
-                dispatch(login({ firstName: user.firstName, lastName: user.lastName, email: user.email }));
-            } else {
-                alert('Email ou mot de passe incorrect.');
-            }
-        } else {
-            alert('Utilisateur non trouvé.');
+            // Exemple : Le backend renvoie un token et des informations utilisateur
+            const { token, user } = response.data;
+
+            // Stock le token dans le localStorage
+            localStorage.setItem('authToken', token);
+
+            // Mettre à jour l'état global avec les informations utilisateur
+            dispatch(login({ token, user }));
+
+            // Rediriger vers la page user après une connexion réussie
+            navigate('/user'); // Redirection vers la page user
+        } catch {
+            alert('Identifiants incorrects'); 
         }
     }
 
@@ -65,9 +68,9 @@ function SignIn() {
                             inputId="remember-me"
                         />
                     {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-                    <a href="./user" className="sign-in-button">Sign In</a>
+                    {/* <a href="./user" className="sign-in-button">Sign In</a> */}
                     {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
-                    {/* <!-- <button className="sign-in-button">Sign In</button> --> */}
+                    <button className="sign-in-button">Sign In</button>
                     {/* <!--  --> */}
                     </form>
                 </section>

@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { initAuth } from './redux/authSlice';
 import './index.css'
 import Header from './components/header'
 import Hero from './components/Hero'
@@ -5,6 +8,15 @@ import Feature from './components/Feature'
 import Footer from './components/Footer'
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      dispatch(initAuth(token));
+    }
+  }, [dispatch]);
+
   return (
     <>
       <Header />
