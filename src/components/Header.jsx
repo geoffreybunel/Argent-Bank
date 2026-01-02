@@ -21,7 +21,7 @@ function Header() {
                     <>
                         <a className="main-nav-item" href="./sign-in">
                             <i className="fa fa-user-circle"></i>
-                            {user?.name || 'User'}
+                            {user?.firstName || 'User'}
                         </a>
                         <a className="main-nav-item" href="./" onClick={() => dispatch(logout())}>
                             <i className="fa fa-sign-out"></i>
