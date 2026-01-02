@@ -2,8 +2,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; // Importer useNavigate
 import { login } from '../redux/authSlice';
 import axiosInstance from '../api/axiosInstance';
-import Header from "../components/header"
-import Footer from "../components/Footer"
 import FormInput from "../components/FormInput"
 
 function SignIn() {
@@ -21,13 +19,13 @@ function SignIn() {
             const response = await axiosInstance.post('/login', { email, password });
 
             // Exemple : Le backend renvoie un token et des informations utilisateur
-            const { token, user } = response.data;
+            const token = response.data.body.token;
 
             // Stock le token dans le localStorage
             localStorage.setItem('authToken', token);
 
             // Mettre à jour l'état global avec les informations utilisateur
-            dispatch(login({ token, user }));
+            dispatch(login(token));
 
             // Rediriger vers la page user après une connexion réussie
             navigate('/user'); // Redirection vers la page user
@@ -37,47 +35,41 @@ function SignIn() {
     }
 
     return (
-        <>
-            <Header />
-
-            <main className="main bg-dark">
-                <section className="sign-in-content">
-                    <i className="fa fa-user-circle sign-in-icon"></i>
-                    <h1>Sign In</h1>
-                    
-                    <form onSubmit={handleLogin}>
-                        <FormInput 
-                            className="wrapper"
-                            labelFor="username"
-                            labelText="Username"
-                            inputType="text"
-                            inputId="username"
-                        />
-                        <FormInput 
-                            className="wrapper"
-                            labelFor="password"
-                            labelText="Password"
-                            inputType="password"
-                            inputId="password"
-                        />
-                        <FormInput 
-                            className="remember"
-                            labelFor="remember-me"
-                            labelText="Remember me"
-                            inputType="checkbox"
-                            inputId="remember-me"
-                        />
-                    {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-                    {/* <a href="./user" className="sign-in-button">Sign In</a> */}
-                    {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
-                    <button className="sign-in-button">Sign In</button>
-                    {/* <!--  --> */}
-                    </form>
-                </section>
-            </main>
-
-            <Footer />
-        </>
+        <main className="main bg-dark">
+            <section className="sign-in-content">
+                <i className="fa fa-user-circle sign-in-icon"></i>
+                <h1>Sign In</h1>
+                
+                <form onSubmit={handleLogin}>
+                    <FormInput 
+                        className="wrapper"
+                        labelFor="username"
+                        labelText="Username"
+                        inputType="text"
+                        inputId="username"
+                    />
+                    <FormInput 
+                        className="wrapper"
+                        labelFor="password"
+                        labelText="Password"
+                        inputType="password"
+                        inputId="password"
+                    />
+                    <FormInput 
+                        className="remember"
+                        labelFor="remember-me"
+                        labelText="Remember me"
+                        inputType="checkbox"
+                        inputId="remember-me"
+                    />
+                {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
+                {/* <a href="./user" className="sign-in-button">Sign In</a> */}
+                {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
+                <button className="sign-in-button">Sign In</button>
+                {/* <!--  --> */}
+                </form>
+            </section>
+        </main>
     )
 }
 export default SignIn

@@ -1,54 +1,51 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { initAuth } from './redux/authSlice';
-import './index.css'
-import Header from './components/header'
-import Hero from './components/Hero'
-import Feature from './components/Feature'
-import Footer from './components/Footer'
+import { useDispatch, useSelector } from 'react-redux';
+import { login, setUser } from './redux/authSlice';
+import axiosInstance from './api/axiosInstance';
+import { Outlet } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
 
+  // 🔁 Rehydratation au refresh
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      dispatch(initAuth(token));
+    const storedToken = localStorage.getItem('authToken');
+    if (storedToken) {
+      dispatch(login(storedToken));
     }
   }, [dispatch]);
+
+  // 👤 Chargement du profil
+  useEffect(() => {
+    if (!token) return;
+
+    axiosInstance.post(
+        '/profile',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(setUser(res.data.body));
+      })
+      .catch(() => {
+        console.error('Erreur récupération profil');
+      });
+  }, [token, dispatch]);
 
   return (
     <>
       <Header />
-
-      <main>
-        <Hero />
-
-        <section className="features">
-          <h2 className="sr-only">Features</h2>
-          <Feature 
-            img="icon-chat.png" 
-            title="You are our #1 priority" 
-            description="Need to talk to a representative? You can get in touch through our
-              24/7 chat or through a phone call in less than 5 minutes." 
-          />
-          <Feature 
-            img="icon-money.png" 
-            title="More savings means higher rates" 
-            description="The more you save with us, the higher your interest rate will be!" 
-          />
-          <Feature 
-            img="icon-security.png" 
-            title="Security you can trust" 
-            description="We use top of the line encryption to make sure your data and money
-              is always safe." 
-          />
-        </section>
-      </main>
-
+      <Outlet />
       <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
