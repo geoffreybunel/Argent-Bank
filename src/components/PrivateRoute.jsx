@@ -5,8 +5,8 @@ function PrivateRoute({ children }) {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const token = useSelector(state => state.auth.token);
 
-  // Vérifie s'il y a un token en localStorage pendant le chargement initial
-  const storedToken = localStorage.getItem('authToken');
+  // Vérifier s'il y a un token dans localStorage ou sessionStorage
+  const storedToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
 
   if (!isAuthenticated && !storedToken && !token) {
     return <Navigate to="/sign-in" replace />;

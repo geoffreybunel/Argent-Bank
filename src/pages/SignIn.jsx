@@ -14,6 +14,7 @@ function SignIn() {
         // Récupérer les valeurs du formulaire
         const email = e.target.username.value;
         const password = e.target.password.value;
+        const rememberMe = e.target['remember-me'].checked;
 
         try {
             const response = await axiosInstance.post('/login', { email, password });
@@ -21,8 +22,14 @@ function SignIn() {
             // Exemple : Le backend renvoie un token et des informations utilisateur
             const token = response.data.body.token;
 
-            // Stock le token dans le localStorage
-            localStorage.setItem('authToken', token);
+            // Stocker le token selon le choix "Remember me"
+            if (rememberMe) {
+                // Stocker dans localStorage pour persistance longue durée
+                localStorage.setItem('authToken', token);
+            } else {
+                // Stocker dans sessionStorage pour la session seulement
+                sessionStorage.setItem('authToken', token);
+            }
 
             // Mettre à jour l'état global avec les informations utilisateur
             dispatch(login(token));

@@ -10,15 +10,20 @@ function App() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
 
-  // 🔁 Rehydratation au refresh
+  // Rehydratation au refresh
   useEffect(() => {
-    const storedToken = localStorage.getItem('authToken');
+    let storedToken = localStorage.getItem('authToken');
+    
+    if (!storedToken) {
+      storedToken = sessionStorage.getItem('authToken');
+    }
+
     if (storedToken) {
       dispatch(login(storedToken));
     }
   }, [dispatch]);
 
-  // 👤 Chargement du profil
+  // Chargement du profil
   useEffect(() => {
     if (!token) return;
 

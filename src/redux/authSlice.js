@@ -18,7 +18,9 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.token = null;
       state.user = null;
+      // Nettoie les deux types de stockage
       localStorage.removeItem('authToken');
+      sessionStorage.removeItem('authToken');
     },
     setUser(state, action) {
       state.user = action.payload;
