@@ -19,7 +19,7 @@ function Header() {
             <div>
                 {isAuthenticated ? (
                     <>
-                        <a className="main-nav-item" href="./sign-in">
+                        <a className="main-nav-item" href="./user">
                             <i className="fa fa-user-circle"></i>
                             {user?.firstName || 'User'}
                         </a>

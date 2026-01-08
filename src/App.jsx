@@ -35,7 +35,7 @@ function App() {
         dispatch(setUser(res.data.body));
       })
       .catch(() => {
-        console.error('Erreur récupération profil');
+        console.error('Erreur de récupération du profil');
       });
   }, [token, dispatch]);
 
