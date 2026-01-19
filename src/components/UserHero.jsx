@@ -49,17 +49,19 @@ function UserHero({ username, buttonText }) {
                 <>
                     <h1>Welcome back</h1>
                     <div className="edit-name-form">
-                        <input
-                            type="text"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-                        <div className="buttons">
+                        <div className="edit-name-inputs">
+                            <input
+                                type="text"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                            />
+                            <input
+                                type="text"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                            />
+                        </div>
+                        <div className="edit-buttons">
                             <button  className="edit-button" onClick={handleSave} disabled={loading}>
                                 Save
                             </button>

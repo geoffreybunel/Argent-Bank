@@ -251,6 +251,24 @@ body {
   flex: 1;
 }
 
+.edit-name-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-name-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
 .edit-button {
   border-color: #00bc77;
   background-color: #00bc77;
