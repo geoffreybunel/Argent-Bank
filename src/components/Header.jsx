@@ -28,16 +28,19 @@ function Header() {
                     <>
                         <Link className="main-nav-item" to="/user">
                             <i className="fa fa-user-circle"></i>
+                            {' '}
                             {user?.firstName || 'User'}
                         </Link>
                         <Link className="main-nav-item" to="/" onClick={handleLogout}>
                             <i className="fa fa-sign-out"></i>
+                            {' '}
                             Sign Out
                         </Link>
                     </>
                 ) : (
                     <Link className="main-nav-item" to="/sign-in">
                         <i className="fa fa-user-circle"></i>
+                        {' '}
                         Sign In
                     </Link>
                 )}
