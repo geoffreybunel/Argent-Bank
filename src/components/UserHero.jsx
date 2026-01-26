@@ -48,7 +48,7 @@ function UserHero({ username, buttonText }) {
             ) : (
                 <>
                     <h1>Welcome back</h1>
-                    <div className="edit-name-form">
+                    {/* <div className="edit-name-form">
                         <div className="edit-name-inputs">
                             <input
                                 type="text"
@@ -65,6 +65,28 @@ function UserHero({ username, buttonText }) {
                             <button  className="edit-button" onClick={handleSave} disabled={loading}>
                                 Save
                             </button>
+                            <button className="edit-button cancel" onClick={() => setIsEditing(false)}>
+                                Cancel
+                            </button>
+                        </div>
+                    </div> */}
+                    <div className="edit-name-form">
+                        <div className="edit-name-1">
+                            <input
+                                type="text"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                            />
+                            <button  className="edit-button" onClick={handleSave} disabled={loading}>
+                                Save
+                            </button>
+                        </div>
+                        <div className="edit-name-2">
+                            <input
+                                type="text"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                            />
                             <button className="edit-button cancel" onClick={() => setIsEditing(false)}>
                                 Cancel
                             </button>

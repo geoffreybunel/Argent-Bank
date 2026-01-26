@@ -8,7 +8,7 @@ function User() {
     if (!user) return null;
 
     return (
-        <main className="main bg-dark">
+        <main className="main-user bg-dark">
             <UserHero 
                 username={user ? `${user?.firstName} ${user?.lastName}` : ''}
                 buttonText="Edit Name"
