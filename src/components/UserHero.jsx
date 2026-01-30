@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux";
-import axiosInstance from '../api/axiosInstance';
 import { setUser } from '../redux/authSlice';
+import { updateUserProfile } from "../api/authService";
 
 function UserHero({ username, buttonText }) {
     const dispatch = useDispatch();
@@ -19,17 +19,8 @@ function UserHero({ username, buttonText }) {
         setLoading(true);
     
         try {
-          const response = await axiosInstance.put(
-            '/profile',
-            { firstName, lastName },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-    
-          dispatch(setUser(response.data.body));
+          const data = await updateUserProfile(token, firstName, lastName);
+          dispatch(setUser(data.body));
           setIsEditing(false);
         } catch {
           console.error('Erreur de mise à jour du profil');

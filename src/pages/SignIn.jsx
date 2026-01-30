@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; // Importer useNavigate
 import { login } from '../redux/authSlice';
-import axiosInstance from '../api/axiosInstance';
 import FormInput from "../components/FormInput"
+import { loginUser } from '../api/authService';
 
 function SignIn() {
     const dispatch = useDispatch();
@@ -17,10 +17,10 @@ function SignIn() {
         const rememberMe = e.target['remember-me'].checked;
 
         try {
-            const response = await axiosInstance.post('/login', { email, password });
+            const data = await loginUser(email, password);
 
             // Exemple : Le backend renvoie un token et des informations utilisateur
-            const token = response.data.body.token;
+            const token = data.body.token;
 
             // Stocker le token selon le choix "Remember me"
             if (rememberMe) {
