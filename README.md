@@ -1,4 +1,8 @@
-# React + Vite
+# ArgentBank
+
+ArgentBank is a banking application interface that consumes a REST API to manage and display user account information.
+
+## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -15,43 +19,35 @@ The React Compiler is not enabled on this template because of its impact on dev 
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
+## Features
 
-Endpoints : 
+- User authentication
+- Account overview
+- Transaction history
+- REST API integration
 
-- Voir les transactions
-  Méthode HTTP : GET
-  Route : /api/v1/transactions
-  Description : Voir les transactions
-  Paramètres : 
-  Réponses possibles : 200
-                       401
-                       500
+## Tech Stack
 
-- Voir les détails d'une transaction
-  Méthode HTTP : GET
-  Route : /api/v1/transactions/{transactionsId}
-  Description : Voir les détails d'une transaction
-  Paramètres : transactionsId
-  Réponses possibles : 200
-                       400
-                       401
-                       404
-                       500
+- React
+- Redux
+- JavaScript
+- REST API
 
-- Modifier une transaction (catégorie/note)
-  Méthode HTTP : PUT
-  Route : /api/v1/transactions/{transactionId}
-  Description : Modifier une transaction (catégorie/note)
-  Paramètres : category, note
-  Réponses possibles : 200
-                       400
-                       401
-                       404
-                       500
+## Getting Started
 
+Clone the repository:
 
-200:	Succès
-400:	Requête invalide
-401:	Non authentifié
-404:	Transaction introuvable
-500:	Erreur serveur
+git clone https://github.com/geoffreybunel/argentbank.git
+
+Install dependencies:
+
+npm install
+
+Start the development server:
+
+npm run dev
+
+## Author
+
+Geoffrey  
+JavaScript / React Developer
